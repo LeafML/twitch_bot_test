@@ -51,10 +51,10 @@ Joined channels: #your_channel_name
 ## The bot is currently adding functions to increase chat interaction and assist the stream
 
 ## Current functions:
-Stream activity: send messages for new followers, raids, cheer bits, gifting subs, raids
-Game queue: viewers could join the queue to queue for game sections with the streamer
-Fortune: viewers could test their luck through the command
-Meal: let the bot decide what to eat for you by generating different meal options
+- Stream activity: send messages for new followers, raids, cheer bits, gifting subs, raids
+- Game queue: viewers could join the queue to queue for game sections with the streamer
+- Fortune: viewers could test their luck through the command
+- Meal: let the bot decide what to eat for you by generating different meal options
 
 ## Troubleshooting
 
