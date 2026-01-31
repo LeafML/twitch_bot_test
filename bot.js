@@ -4,6 +4,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const { handleCommand, queueSystem } = require('./commands');
 const { fortuneCommands } = require('./fortune');
+const { handleMealCommand } = require('./meals');
 // Validate required environment variables
 const requiredEnvs = ['TWITCH_USERNAME', 'TWITCH_OAUTH_TOKEN', 'TWITCH_CHANNELS'];
 const missingEnvs = requiredEnvs.filter(env => !process.env[env]);
@@ -69,6 +70,7 @@ async function onMessageHandler(channel, userstate, message, self) {
   // Handle all commands from commands.js
   if (handleCommand(channel, userstate, messageText, client)) return;
   if (await fortuneCommands(channel, userstate, messageText, client)) return;
+  if (handleMealCommand(channel, userstate, messageText, client)) return;
 }
 
 // Called every time someone cheers
