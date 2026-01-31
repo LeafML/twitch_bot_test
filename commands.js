@@ -109,8 +109,29 @@ function handleCommand(channel, userstate, messageText, client) {
       return true;
     }
   }
-  // Mod/Owner commands
-  if (isModOrStreamer && queueSystem.isActive) {
+  // Mod/Owner commands - start/close always allowed; other commands require active queue
+  if (isModOrStreamer) {
+    // Allow starting/closing the queue regardless of current state
+    if (command === '!startqueue') {
+      const result = queueSystem.toggle(true);
+      client.say(channel, result);
+      return true;
+    }
+
+    if (command === '!closequeue') {
+      const result = queueSystem.toggle(false);
+      client.say(channel, result);
+      return true;
+    }
+
+    // For other mod commands, ensure the queue is active
+    if (!queueSystem.isActive) {
+      if (['!next', '!add', '!remove', '!clearqueue'].includes(command)) {
+        client.say(channel, 'Queue is not active. Use !startqueue to activate.');
+        return true;
+      }
+    }
+
     if (command === '!next' && args.length > 1) {
       const count = parseInt(args[1]);
       if (isNaN(count) || count < 1) {
@@ -142,18 +163,6 @@ function handleCommand(channel, userstate, messageText, client) {
 
     if (command === '!clearqueue') {
       const result = queueSystem.clear();
-      client.say(channel, result);
-      return true;
-    }
-
-    if (command === '!startqueue') {
-      const result = queueSystem.toggle(true);
-      client.say(channel, result);
-      return true;
-    }
-
-    if (command === '!closequeue') {
-      const result = queueSystem.toggle(false);
       client.say(channel, result);
       return true;
     }
